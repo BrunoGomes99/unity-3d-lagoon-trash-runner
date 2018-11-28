@@ -19,7 +19,7 @@ public class MovieIntro : MonoBehaviour {
     public bool damage = false;
     public bool virou = false;
 
-    // Teste
+    // Teste adssda
     // Use this for initialization
     void Start () {
         controller = GetComponent<CharacterController>(); // Inicializa o controller com o objeto o qual utiliza este componente
