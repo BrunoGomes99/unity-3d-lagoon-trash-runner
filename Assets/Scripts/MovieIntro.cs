@@ -65,8 +65,13 @@ public class MovieIntro : MonoBehaviour {
                 kidController.Move(new Vector3(speedRun * Time.deltaTime, 0, 0));
             }
         }
-        
-	}
+
+        if (transform.position.x >= 6)
+        {
+            Application.LoadLevel("Main");
+        }
+
+    }
 
     private void OnTriggerEnter(Collider other)  // Para verificar as colisões. Lembrando que o objeto em que vou colidir deve estar com o IsTrigger ativado
     {
