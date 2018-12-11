@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Dificuldade.cs" />
+    <Compile Include="Assets\Scripts\FileManager.cs" />
     <Compile Include="Assets\Scripts\MoveOffset.cs" />
     <Compile Include="Assets\Scripts\MovieIntro.cs" />
     <Compile Include="Assets\Scripts\MovimentoObstaculo.cs" />
@@ -69,6 +70,8 @@
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Snake.cs" />
     <Compile Include="Assets\Scripts\Spawn.cs" />
+    <None Include="Assets\Files\record.txt" />
+    <None Include="Assets\Files\score.txt" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>F:/Meus Documentos/Repositorios/JogoCG/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

@@ -23,11 +23,14 @@ public class Spawn : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        accTime += Time.deltaTime;
-        if (accTime >= tempoSpawn)
+        if (Player.comecou)
         {
-            accTime = 0;
-            Instantiate(obstaculos[Random.Range(0, 4)]);
+            accTime += Time.deltaTime;
+            if (accTime >= tempoSpawn)
+            {
+                accTime = 0;
+                Instantiate(obstaculos[Random.Range(0, 4)]);
+            }
         }
     }
 }

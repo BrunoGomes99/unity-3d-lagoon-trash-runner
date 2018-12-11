@@ -12,6 +12,7 @@ public class Dificuldade : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        accTime = 0;
         Hard = new List<float> { 1, 1.3f, 1.5f };
         Medio = new List<float> { 2, 2.5f, 2.8f };
         Easy = new List<float> { 3, 3.5f, 4f };
@@ -20,27 +21,37 @@ public class Dificuldade : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        accTime += Time.deltaTime;
-        //Debug.Log(Spawn.tempoSpawn);
-        if (accTime <= 20)
+        if (Player.comecou)
         {
-            Spawn.tempoSpawn = Easy[Random.Range(0,3)];
-        }
-        else
-        {
-            if (accTime <= 40)
+            if (!Options.pause)
             {
-                //Debug.Log("MEDIO");
-                MoveOffset.speed = 6f;
-                Spawn.tempoSpawn = Medio[Random.Range(0, 3)];
-            }
-            else
-            {
-                //Debug.Log("DIFICIL");
-                MoveOffset.speed = 7f;
-                Spawn.tempoSpawn = Random.Range(Hard[Random.Range(0, 3)], Medio[Random.Range(0, 3)]);
-            }
-        }
 
-	}
+                accTime += Time.deltaTime;
+                //Debug.Log(Spawn.tempoSpawn);
+                if (accTime <= 20) //20
+                {
+                    MoveOffset.offset += 0.001f;
+                    Debug.Log(MoveOffset.speed);
+                    Spawn.tempoSpawn = Easy[Random.Range(0, 3)];
+                }
+                else
+                {
+                    if (accTime <= 40) //40
+                    {
+                        Debug.Log("MEDIO");
+                        //MoveOffset.speed = 6f;
+                        MoveOffset.offset += 0.0013f;
+                        Spawn.tempoSpawn = Medio[Random.Range(0, 3)];
+                    }
+                    else
+                    {
+                        //Debug.Log("DIFICIL");
+                        MoveOffset.offset += 0.0016f;
+                        Spawn.tempoSpawn = Random.Range(Hard[Random.Range(0, 3)], Medio[Random.Range(0, 3)]);
+                    }
+                }
+
+            }
+        }
+    }
 }

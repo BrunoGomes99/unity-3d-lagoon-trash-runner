@@ -6,13 +6,16 @@ public class MoveOffset : MonoBehaviour {
 
     public GameObject scenario;
     public Material CurrentMaterial;
-    private float offset;
-    static public float speed = 4.5f;
-    static public float speedSky = 1.2f;
+    static public float offset;
+    static public float speed;
+    static public float speedSky;
 
     // Use this for initialization
     void Start()
     {
+        speed = 4.5f;
+        speedSky = 1.8f;
+        offset = 0;
         CurrentMaterial = GetComponent<Renderer>().material;
     }
 
@@ -20,17 +23,20 @@ public class MoveOffset : MonoBehaviour {
     void Update()
     {
 
-
-        if(scenario == GameObject.FindGameObjectWithTag("sky"))
+        if (!Options.pause)
         {
-            offset += 0.1f;
-            CurrentMaterial.SetTextureOffset("_MainTex", new Vector2(offset * speedSky, 0));
-        }
-        else
-        {
-            offset += 0.001f;
-            CurrentMaterial.SetTextureOffset("_MainTex", new Vector2(offset * speed, 0));
-        }
 
+            if (scenario == GameObject.FindGameObjectWithTag("sky"))
+            {
+                //offset += 0.001f;
+                CurrentMaterial.SetTextureOffset("_MainTex", new Vector2(offset * speedSky, 0));
+            }
+            else
+            {
+                //offset += 0.001f;
+                CurrentMaterial.SetTextureOffset("_MainTex", new Vector2(offset * speed, 0));
+            }
+
+        }
     }
 }
