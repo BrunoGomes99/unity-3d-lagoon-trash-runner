@@ -9,6 +9,7 @@ public class Dificuldade : MonoBehaviour {
     public List<float> Hard;
 
     private float accTime;
+    public AudioSource musica;
 
 	// Use this for initialization
 	void Start () {
@@ -31,7 +32,6 @@ public class Dificuldade : MonoBehaviour {
                 if (accTime <= 20) //20
                 {
                     MoveOffset.offset += 0.001f;
-                    Debug.Log(MoveOffset.speed);
                     Spawn.tempoSpawn = Easy[Random.Range(0, 3)];
                 }
                 else
@@ -46,6 +46,7 @@ public class Dificuldade : MonoBehaviour {
                     else
                     {
                         //Debug.Log("DIFICIL");
+                        musica.pitch = 1.06f;
                         MoveOffset.offset += 0.0016f;
                         Spawn.tempoSpawn = Random.Range(Hard[Random.Range(0, 3)], Medio[Random.Range(0, 3)]);
                     }

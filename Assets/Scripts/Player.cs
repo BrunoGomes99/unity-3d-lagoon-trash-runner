@@ -20,7 +20,7 @@ public class Player : MonoBehaviour {
     public Transform positionPlayer;
     public Transform colisor;
     public GameObject starsPrefab;
-    public bool die = false;
+    static public bool die;
     static public bool comecou = false;
     public GameObject balao4;
 
@@ -55,9 +55,10 @@ public class Player : MonoBehaviour {
     public TextMesh recordOver;
     public TextMesh scoreOver;
     public GameObject gameOver;
+    public GameObject scoreObject;
 
-    public int score;
-    public int record;
+    public AudioSource musica;
+
     private float tempScore;
 
     // Use this for initialization
@@ -72,7 +73,7 @@ public class Player : MonoBehaviour {
         scaleXColisor = colisor.localScale.x;
         scaleYColisor = colisor.localScale.y;
         accTempSlide = 0;
-        record = textScore.GetComponent<FileManager>().getRecord();
+        die = false;
     }
 
     void Finalizar(Vector2 posicao)
@@ -144,26 +145,32 @@ public class Player : MonoBehaviour {
             comecou = true;
             //MoveOffset.speed = 4.5f;
             //MoveOffset.speedSky = 1.2f;
+            musica.pitch = 1;
             positionPlayer.transform.position += new Vector3(0, 0, 0) * Time.deltaTime;
             snake.transform.position += new Vector3(0, 0, 0) * Time.deltaTime;
         }
 
 
+        if (die)
+        {
+            musica.enabled = false;
+        }
+
         if (comecou)
         {
             if (Options.pause)
             {
-                score = score;
+                SaveScore.score = SaveScore.score;
             }
             else
             {
                 tempScore += Time.deltaTime;
-                if (tempScore > 0.6f)
+                if (tempScore > 0.6f && !die)
                 {
-                    score++;
+                    SaveScore.score++;
                     tempScore = 0;
                 }
-                textScore.text = score.ToString();
+                textScore.text = SaveScore.score.ToString();
             }
 
             if (Input.touchCount > 0 && toqueIniciado == false && Input.GetTouch(0).phase == TouchPhase.Began && !die)
@@ -184,7 +191,7 @@ public class Player : MonoBehaviour {
             }
 
 
-            if (Input.GetKeyDown(KeyCode.Space) && NoChao == true && !die)
+            if (Input.GetKeyDown(KeyCode.W) && NoChao == true && !die)
             {
                 if (podePular)
                 {
@@ -302,17 +309,18 @@ public class Player : MonoBehaviour {
         chao.position = new Vector3(posXChao, posYChao, chao.position.z);
         accTime += Time.deltaTime;
         comecou = false;
-        tempScore = 0;
-        textScore.GetComponent<FileManager>().setScore(score);
-        if (score > record)
-        {
-            record = score;
-            textScore.GetComponent<FileManager>().setRecord(record);
-        }
-        else
-        {
-            textScore.GetComponent<FileManager>().setRecord(record);
-        }
+        scoreObject.GetComponent<SaveScore>().ChecarScore();
+       //tempScore = 0;
+       //textScore.GetComponent<FileManager>().setScore(score);
+       //if (score > record)
+       //{
+       //    record = score;
+       //    textScore.GetComponent<FileManager>().setRecord(record);
+       //}
+       //else
+       //{
+       //    textScore.GetComponent<FileManager>().setRecord(record);
+       //}
 
         MoveOffset.speed = 0;
         //if (die == true)
@@ -321,12 +329,13 @@ public class Player : MonoBehaviour {
         snake.GetComponent<SpriteRenderer>().sprite = spriteSnakeEnd;
         starsPrefab.GetComponent<SpriteRenderer>().enabled = true;
         balao4.GetComponent<SpriteRenderer>().enabled = true;
-        recordOver.text = "High score: " + record.ToString();
-        scoreOver.text = score.ToString();
+        recordOver.text = "High score: " + SaveScore.record.ToString();
+        scoreOver.text = SaveScore.score.ToString();
         scoreOver.GetComponent<MeshRenderer>().enabled = true;
         recordOver.GetComponent<MeshRenderer>().enabled = true;
         gameOver.GetComponent<SpriteRenderer>().enabled = true;
         buttonMenu.image.enabled = true;
         buttonRestart.image.enabled = true;
+       
     }
 }

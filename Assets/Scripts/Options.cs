@@ -13,6 +13,12 @@ public class Options : MonoBehaviour {
     private Material tempMaterial;
     public Button buttonPause;
     public Button buttonRestart;
+    public GameObject credits;
+    public Button buttonClose;
+    public Button buttonSound;
+    public AudioSource musica;
+    public Sprite spriteMute;
+    public Sprite spriteSound;
 
     // Use this for initialization
     void Start () {
@@ -47,7 +53,45 @@ public class Options : MonoBehaviour {
 
     public void menu()
     {
+        Application.LoadLevel("Menu");
+    }
+
+    public void start()
+    {
         Application.LoadLevel("Intro");
+    }
+
+    public void creditos()
+    {
+        credits.GetComponent<SpriteRenderer>().enabled = true;
+        buttonClose.GetComponent<Image>().enabled = true;
+        buttonClose.GetComponent<Button>().interactable = true;
+    }
+
+    public void closeCredit()
+    {
+        credits.GetComponent<SpriteRenderer>().enabled = false;
+        buttonClose.GetComponent<Image>().enabled = false;
+        buttonClose.GetComponent<Button>().interactable = false;
+    }
+
+    public void sound()
+    {
+        if (!Player.die)
+        {
+
+            if (musica.enabled)
+            {
+                buttonSound.GetComponent<Image>().sprite = spriteMute;
+                musica.enabled = false;
+            }
+            else
+            {
+                buttonSound.GetComponent<Image>().sprite = spriteSound;
+                musica.enabled = true;
+            }
+
+        }
     }
 
     //public void despausar()
